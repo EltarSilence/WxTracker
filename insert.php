@@ -60,28 +60,30 @@
                           <table>
                             <thead>
                               <th>Data e Ora</th>
-                              <th>Direzione Vento</th>
-                              <th>Velocita Vento</th>
+                              <th>Dir. Vento</th>
+                              <th>Vel. Vento</th>
                               <th>Visibilita</th>
                               <th>Fenomeni</th>
                               <th>Cop. Nuvolosa</th>
                               <th>Temperatura</th>
-                              <th>Punto di rugiada</th>
+                              <th>P. di rugiada</th>
                               <th>Pressione</th>
+                              <th>Trend</th>
                               <th>Note</th>
                             </thead>
                             <tbody>
                               <tr>
                                 <form action="index.php" method="post">
                                   <td><input style="width: 135px;" class="form-control" value="<?php echo $t; ?>" name="wxTime"></td>
-                                  <td><input style="width: 135px;" class="form-control" name="wxDirV"></td>
-                                  <td><input style="width: 135px;" class="form-control" name="wxVelV"></td>
+                                  <td><input style="width: 65px;" class="form-control" name="wxDirV"></td>
+                                  <td><input style="width: 65px;" class="form-control" name="wxVelV"></td>
                                   <td><input style="width: 135px;" class="form-control" name="wxVis"></td>
                                   <td><input style="width: 135px;" class="form-control" name="wxFen"></td>
                                   <td><input style="width: 200px;" class="form-control" name="wxNuv"></td>
                                   <td><input type="number" style="width: 70px;" class="form-control" name="wxTA"></td>
                                   <td><input type="number" style="width: 70px;" class="form-control" name="wxTR"></td>
                                   <td><input style="width: 70px;" class="form-control" name="wxPress"></td>
+                                  <td><input style="width: 70px;" class="form-control" name="wxTrend"></td>
                                   <td><input style="width: 135px;" class="form-control" name="wxRmk"></td>
                                   <td><input type="submit" name="wxNew"></td>
                                 </form>

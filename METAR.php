@@ -66,9 +66,9 @@ class METAR {
   }
 
   public static function createTimeGroup($round = false){
-    $day = date("d");
-    $hour = date("H");
-    $minutes = date("i");
+    $day = gmdate("d");
+    $hour = gmdate("H");
+    $minutes = gmdate("i");
     if ($round){
       (abs(50-$minutes) > abs($minutes-20))?$minutes=20:$minutes=50;
     }

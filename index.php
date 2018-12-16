@@ -52,7 +52,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="card">
-                      <div class="card-header">Riporti Meteorologici</div>
+                      <div class="card-header">Riporti Meteorologici <button class="btn btn-info" href="index.php">Aggiorna</button></div>
                         <br>
                         <?php
 
@@ -66,12 +66,13 @@
                             $temp1 = validateTemp($_POST['wxTA']);
                             $temp2 = validateTemp($_POST['wxTR']);
                             $press = convertQFEToQNH($_POST['wxPress']);
+                            $trend = $_POST['wxTrend'];
                             $rmk = $_POST['wxRmk'];
 
-                            $METAR = preg_replace('/\s+/', ' ', "METAR LIDQ $t $dV$vV"."KT $vis $fen $nuv $temp1/$temp2 Q$press");
+                            $METAR = preg_replace('/\s+/', ' ', "METAR LIDQ $t $dV$vV"."KT $vis $fen $nuv $temp1/$temp2 Q$press $trend");
 
-                            $sql = "INSERT INTO wxdata (wxDirV, wxVelV, wxVisib, wxFen, wxNuv, wxTempA, wxTempR, wxPress, remarks, raw)
-                            VALUES ('$dV', '$vV', '$vis', '$fen', '$nuv', '$temp1', '$temp2', '$press', '$rmk', '$METAR')";
+                            $sql = "INSERT INTO wxdata (wxDirV, wxVelV, wxVisib, wxFen, wxNuv, wxTempA, wxTempR, wxPress, remarks, trend, raw)
+                            VALUES ('$dV', '$vV', '$vis', '$fen', '$nuv', '$temp1', '$temp2', '$press', '$rmk', '$trend', '$METAR')";
 
                             $result = mysqli_query($conn, $sql);
 
@@ -93,16 +94,21 @@
                           </thead>
                           <tbody>
                         <?php
-                          $sql = "SELECT * FROM wxdata";
+                          $sql = "SELECT * FROM wxdata ORDER BY wxTime DESC";
                           $result = mysqli_query($conn, $sql);
                           while ($row = mysqli_fetch_assoc($result)){
+                            $d = substr(explode(' ', $row['raw'])[2], 0, 2);
+                            $h = substr(explode(' ', $row['raw'])[2], 2, 2);
+                            $m = substr(explode(' ', $row['raw'])[2], 4, 2);
+
+                            $diff = abs($m-explode(':', explode(' ', $row['wxTime'])[1])[1]);
                             ?>
                             <tr>
                               <td><?php echo time_elapsed_string($row['wxTime']); ?></td>
                               <td>
-                                <div><?php echo $row['wxTime']; ?></div>
+                                <div><?php echo $row['wxTime'];?></div>
                                 <div class="small text-muted">
-                                  VERA ORA DI EMISSIONE</div>
+                                  ORA DI EMISSIONE: <?php if ($diff>15) echo "Scarto di ~ $diff min"; else echo "Precisa"; ?></div>
                               </td>
                               <td>
                                 <?php
