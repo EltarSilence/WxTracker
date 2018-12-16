@@ -87,33 +87,37 @@
                                 <i class="icon-people"></i>
                               </th>
                               <th>Data e Ora</th>
-                              <th class="text-center">RAW METAR</th>
-                              <th>Vento</th>
-                              <th class="text-center">Visibilita</th>
-                              <th>Fenomeni</th>
+                              <th>Badges</th>
+                              <th>RAW METAR</th>
                             </tr>
                           </thead>
                           <tbody>
+                        <?php
+                          $sql = "SELECT * FROM wxdata";
+                          $result = mysqli_query($conn, $sql);
+                          while ($row = mysqli_fetch_assoc($result)){
+                            ?>
                             <tr>
-                              <td>Oggi</td>
+                              <td><?php echo time_elapsed_string($row['wxTime']); ?></td>
                               <td>
-                                <div>BBBBBBBBBB</div>
+                                <div><?php echo $row['wxTime']; ?></div>
                                 <div class="small text-muted">
                                   VERA ORA DI EMISSIONE</div>
                               </td>
-                              <td class="text-center">
-                                <i class="flag-icon flag-icon-us h4 mb-0" id="us" title="us"></i>
-                              </td>
                               <td>
-                                ciao
-                              </td>
-                              <td class="text-center">
-                                s
-                              </td>
+                                <?php
+                                echo getBadges($row['wxVelV'], $row['wxVisib'], $row['wxFen'], $row['wxTempA']);
+                              ?>
+                            </td>
                               <td>
-                                Pioggia
-                              </td>
+                              <strong>
+                               <?php echo $row['raw']; ?>
+                             </strong>
+                             </td>
                             </tr>
+                            <?php
+                          }
+                        ?>
                           </tbody>
                         </table>
                         <!-- FINE TAB METAR -->
