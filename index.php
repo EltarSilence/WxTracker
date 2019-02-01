@@ -65,7 +65,7 @@
                             $nuv = $_POST['wxNuv'];
                             $temp1 = validateTemp($_POST['wxTA']);
                             $temp2 = validateTemp($_POST['wxTR']);
-                            $press = convertQFEToQNH($_POST['wxPress']);
+                            $press = sprintf("%04d", convertQFEToQNH($_POST['wxPress']));
                             $trend = $_POST['wxTrend'];
                             $rmk = $_POST['wxRmk'];
 
