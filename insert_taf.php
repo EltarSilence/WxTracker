@@ -60,40 +60,38 @@
                           <table>
                             <thead>
                               <th>Data e Ora</th>
-                              <th>Dir. Vento</th>
-                              <th>Vel. Vento</th>
-                              <th>Visibilita</th>
-                              <th>Fenomeni</th>
-                              <th>Cop. Nuvolosa</th>
-                              <th>Temperatura</th>
-                              <th>P. di rugiada</th>
-                              <th>Pressione</th>
-                              <th>Trend</th>
+                              <th>Valido da / a</th>
+                              <th>Fen. Generali</th>
+                              <th>Fen. Specifici</th>
+                              <th>Remarks</th>
                               <th>Note</th>
                             </thead>
                             <tbody>
                               <tr>
                                 <form action="index.php" method="post">
-                                  <td><input style="width: 135px;" class="form-control" value="<?php echo $t; ?>" name="wxTime"></td>
-                                  <td><input style="width: 65px;" class="form-control" name="wxDirV"></td>
-                                  <td><input style="width: 65px;" class="form-control" name="wxVelV"></td>
-                                  <td><input style="width: 135px;" class="form-control" name="wxVis"></td>
-                                  <td><input style="width: 135px;" class="form-control" name="wxFen"></td>
-                                  <td><input style="width: 200px;" class="form-control" name="wxNuv"></td>
-                                  <td><input type="number" style="width: 70px;" class="form-control" name="wxTA"></td>
-                                  <td><input type="number" style="width: 70px;" class="form-control" name="wxTR"></td>
-                                  <td><input style="width: 70px;" class="form-control" name="wxPress"></td>
-                                  <td><input style="width: 70px;" class="form-control" name="wxTrend"></td>
-                                  <td><input style="width: 135px;" class="form-control" name="wxRmk"></td>
-                                  <td><input type="submit" name="wxNew"></td>
+                                  <td><input style="width: 135px;" class="form-control" value="<?php echo $t; ?>" name="pvTime"></td>
+                                  <td><input style="width: 135px;" class="form-control" name="pvValid"></td>
+                                  <td><input style="width: 300px;" class="form-control" name="pvGeneral"></td>
+                                  <td><textarea style="width: 300px; height: 100px;" class="form-control" name="pvSpecific"></textarea></td>
+                                  <td><input style="width: 135px;" class="form-control" name="pvRmk"></td>
+                                  <td><input style="width: 135px;" class="form-control" name="pvNote"></td>
+                                  <td><input type="submit" name="pvNew"></td>
                                 </form>
                               </tr>
                             </tbody>
                           </table>
-
+                          <table>
+                            <tr>
+                              <td>
+                                <iframe width="650" height="450" src="https://embed.windy.com/embed2.html?lat=45.466&lon=10.703&zoom=9&level=surface&overlay=wind&menu=&message=&marker=&calendar=24&pressure=true&type=map&location=coordinates&detail=true&detailLat=45.672&detailLon=10.638&metricWind=kt&metricTemp=%C2%B0C&radarRange=-1" frameborder="0"></iframe>
+                              </td>
+                              <td>
+                                <img alt="MeteoSat" src="http://www.meteosatonline.it/riduce/anim-ita.php" width="640" height="480">
+                              </td>
+                            </tr>
+                        </table>
                       <br>
                       </div>
-                      <img src="http://www.marinadibogliaco.com/meteo/bogliaco.jpg?n=1678601804" width="50%">
                     </div>
                   </div>
                   <!-- /.col-->

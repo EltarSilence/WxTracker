@@ -94,7 +94,7 @@ class METAR {
   }
 
   public static function createQNHGroup($press){
-    return 'Q'.$press;
+    return 'Q'.sprintf("%04d", $press);
   }
 
   public static function createTempGroup($airtemp, $hum){

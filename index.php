@@ -52,7 +52,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="card">
-                      <div class="card-header">Riporti Meteorologici <button class="btn btn-info" href="index.php">Aggiorna</button></div>
+                      <div class="card-header">Elenco completo dei riporti e delle previsioni meteorologiche <a class="nav-link" href="index.php">Aggiorna</a></div>
                         <br>
                         <?php
 
@@ -78,6 +78,24 @@
 
                           }
 
+                          if (isset($_POST['pvNew'])) {
+                            $t = $_POST['pvTime'];
+                            $valid = $_POST['pvValid'];
+                            $general = $_POST['pvGeneral'];
+                            $specific = $_POST['pvSpecific'];
+                            $rmk = $_POST['pvRmk'];
+                            $note = $_POST['pvNote'];
+
+                            $TAF = "TAF LIDQ $t $valid $general";
+                            if ($specific!="") $TAF.=" $specific";
+                            if ($rmk!="") $TAF.=" RMK $rmk";
+
+                            $sql = "INSERT INTO prevdata (pvValid, pvGeneral, pvSpecific, pvRmk, pvNote, raw)
+                            VALUES ('$valid', '$general', '$specific', '$rmk', '$note', '$TAF')";
+                            var_dump($sql);
+                            $result = mysqli_query($conn, $sql);
+                          }
+
 
                         ?>
                         <!-- INIZIO TAB METAR -->
@@ -85,16 +103,39 @@
                           <thead class="thead-light">
                             <tr>
                               <th class="text-center">
-                                <i class="icon-people"></i>
+                                <i class="icon-people">PREVISIONI TAF</i>
+                              </th>
+                              <th>Data e ora</th>
+                              <th>Validit&agrave;</th>
+                              <th>RAW TAF</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <?php
+                              $sql = "SELECT * FROM prevdata ORDER BY pvTime DESC LIMIT 1";
+                              $result = mysqli_query($conn, $sql);
+                              while ($row = mysqli_fetch_assoc($result)){
+                                echo "<td>ULTIMA PREVISIONE EMESSA</td>";
+                                echo "<td>".$row['pvTime']."</td>";
+                                echo "<td>".$row['pvValid']."</td>";
+                                echo "<td><b>".$row['raw']."</b></td>";
+                              }
+                            ?>
+                          </tbody>
+                          <thead class="thead-light">
+                            <tr>
+                              <th class="text-center">
+                                <i class="icon-people">BOLLETTINI METAR</i>
                               </th>
                               <th>Data e Ora</th>
-                              <th>Badges</th>
+                              <th>Periodo</th>
                               <th>RAW METAR</th>
+                              <th>Badges</th>
                             </tr>
                           </thead>
                           <tbody>
                         <?php
-                          $sql = "SELECT * FROM wxdata ORDER BY wxTime DESC";
+                          $sql = "SELECT * FROM wxdata ORDER BY wxTime DESC LIMIT 5";
                           $result = mysqli_query($conn, $sql);
                           while ($row = mysqli_fetch_assoc($result)){
                             $d = substr(explode(' ', $row['raw'])[2], 0, 2);
@@ -108,17 +149,25 @@
                               <td>
                                 <div><?php echo $row['wxTime'];?></div>
                                 <div class="small text-muted">
-                                  ORA DI EMISSIONE: <?php if ($diff>15) echo "Scarto di ~ $diff min"; else echo "Precisa"; ?></div>
+                                  ORA DI EMISSIONE: <?php if ($diff>10) echo "Scarto di ~ $diff min"; else echo "Precisa +-10 min"; ?></div>
                               </td>
+                              <td>
+                                <?php
+                                  $dt = new DateTime($row['wxTime']);
+                                  echo $dt->format('F Y');
+
+                                 ?>
+                              </td>
+                              <td>
+                                <strong>
+                                 <?php echo $row['raw']; ?>
+                               </strong>
+
+                            </td>
                               <td>
                                 <?php
                                 echo getBadges($row['wxVelV'], $row['wxVisib'], $row['wxFen'], $row['wxTempA']);
                               ?>
-                            </td>
-                              <td>
-                              <strong>
-                               <?php echo $row['raw']; ?>
-                             </strong>
                              </td>
                             </tr>
                             <?php
