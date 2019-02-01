@@ -68,11 +68,13 @@
                             $press = sprintf("%04d", convertQFEToQNH($_POST['wxPress']));
                             $trend = $_POST['wxTrend'];
                             $rmk = $_POST['wxRmk'];
+                            $realtemp1 = sprintf("%02d", $_POST['wxTA']);
+                            $realtemp2 = sprintf("%02d", $_POST['wxTR']);
 
                             $METAR = preg_replace('/\s+/', ' ', "METAR LIDQ $t $dV$vV"."KT $vis $fen $nuv $temp1/$temp2 Q$press $trend");
 
                             $sql = "INSERT INTO wxdata (wxDirV, wxVelV, wxVisib, wxFen, wxNuv, wxTempA, wxTempR, wxPress, remarks, trend, raw)
-                            VALUES ('$dV', '$vV', '$vis', '$fen', '$nuv', '$temp1', '$temp2', '$press', '$rmk', '$trend', '$METAR')";
+                            VALUES ('$dV', '$vV', '$vis', '$fen', '$nuv', '$realtemp1', '$realtemp2', '$press', '$rmk', '$trend', '$METAR')";
 
                             $result = mysqli_query($conn, $sql);
 
