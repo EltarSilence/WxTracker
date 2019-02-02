@@ -137,7 +137,7 @@
                           </thead>
                           <tbody>
                         <?php
-                          $sql = "SELECT * FROM wxdata ORDER BY wxTime DESC LIMIT 5";
+                          $sql = "SELECT * FROM wxdata ORDER BY wxTime DESC";
                           $result = mysqli_query($conn, $sql);
                           while ($row = mysqli_fetch_assoc($result)){
                             $d = substr(explode(' ', $row['raw'])[2], 0, 2);

@@ -27,6 +27,9 @@ function validateVisibility($v){
   if (strlen($v) == 4){
     return sprintf("%04d", $v);
   }
+  else {
+    return $v;
+  }
 }
 
 function validateTemp($t){
