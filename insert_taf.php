@@ -70,7 +70,7 @@
                               <tr>
                                 <form action="index.php" method="post">
                                   <td><input style="width: 135px;" class="form-control" value="<?php echo $t; ?>" name="pvTime"></td>
-                                  <td><input style="width: 135px;" class="form-control" name="pvValid"></td>
+                                  <td><input style="width: 135px;" class="form-control" name="pvValid" value="<?php echo date('d').date('H').'/'.sprintf("%02d", date('d')+1).'24'; ?>"></td>
                                   <td><input style="width: 300px;" class="form-control" name="pvGeneral"></td>
                                   <td><textarea style="width: 300px; height: 100px;" class="form-control" name="pvSpecific"></textarea></td>
                                   <td><input style="width: 135px;" class="form-control" name="pvRmk"></td>

@@ -97,7 +97,6 @@
 
                             $sql = "INSERT INTO prevdata (pvValid, pvGeneral, pvSpecific, pvRmk, pvNote, raw)
                             VALUES ('$valid', '$general', '$specific', '$rmk', '$note', '$TAF')";
-                            var_dump($sql);
                             $result = mysqli_query($conn, $sql);
                           }
 
