@@ -1,4 +1,7 @@
-<?php require_once 'config.php'; ?>
+<?php
+  require_once 'config.php';
+  date_default_timezone_set('UTC');
+?>
 
     <!DOCTYPE html>
     <!--
@@ -151,14 +154,23 @@
                               <td>
                                 <div><?php echo $row['wxTime'];?></div>
                                 <div class="small text-muted">
-                                  ORA DI EMISSIONE: <?php if ($diff>10) echo "Scarto di ~ $diff min"; else echo "Precisa +-10 min"; ?></div>
+                                  ORA DI EMISSIONE:
+                                  <?php
+                                  $dt = new DateTime($row['wxTime']);
+                                  if ($dt->format('H') == $h+1) {
+
+                                    if ($diff>10) echo "Scarto di ~ $diff min";
+                                    else echo "Precisa +-10 min";
+                                  }
+                                  else {
+                                    echo "Differita";
+                                  }
+                                  ?></div>
                               </td>
                               <td>
                                 <?php
-                                  $dt = new DateTime($row['wxTime']);
                                   echo $dt->format('F Y');
-
-                                 ?>
+                                ?>
                               </td>
                               <td>
                                 <strong>
