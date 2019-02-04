@@ -20,8 +20,7 @@
         <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
         <title>WX Tracker</title>
         <!-- Main styles for this application-->
-        <link href="css/style.css" rel="stylesheet">
-        <link href="vendors/pace-progress/css/pace.min.css" rel="stylesheet">
+        <link href="css/style.min.css" rel="stylesheet">
         <!-- Global site tag (gtag.js) - Google Analytics-->
         <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-118965717-3"></script>
         <script>
