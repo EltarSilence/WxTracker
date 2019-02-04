@@ -71,14 +71,29 @@ function time_elapsed_string($datetime, $full = false) {
     return $string ? implode(', ', $string) . ' ago' : 'ora';
 }
 
-function getBadges($vento, $vis, $fen, $temp){
+function isVMCfmClouds($clouds){
+  //se ceiling e' 1500 o piu' -> VMC
+  $vmc = true;
+  $clds = explode(' ', $clouds);
+  foreach ($clds as $copertura){
+    $okta = substr($copertura, 0, 3);
+    $quota = 100 * (int)substr($copertura, 3, 6);
+    if (($okta == "BKN" || $okta == "OVC") && ($quota <= 1500)) {
+      $vmc = false;
+      break;
+    }
+  }
+  return $vmc;
+}
+
+function getBadges($vento, $vis, $fen, $temp, $nuvole){
   $badges = array();
 
   if (substr($vento, 0, 2) >= 15){
     array_push($badges, '<span class="badge badge-primary">Ventoso</span>');
   }
 
-  if (substr($vis, 0, 4) >= 5000){
+  if ((substr($vis, 0, 4) >= 5000 || strtoupper($vis) == "CAVOK") && isVMCfmClouds($nuvole)){
     array_push($badges, '<span class="badge badge-success">VMC</span>');
   }
   else {
@@ -89,7 +104,10 @@ function getBadges($vento, $vis, $fen, $temp){
   if (in_array('BR', $fen)){
     array_push($badges, '<span class="badge badge-secondary">Foschia</span>');
   }
-  if (in_array('RA', $fen) || in_array('DZ', $fen) || in_array('RADZ', $fen) || in_array('-RA', $fen) || in_array('+RA', $fen) || in_array('-DZ', $fen)){
+  if (in_array('RA', $fen) ||
+  in_array('DZ', $fen) || in_array('RADZ', $fen) ||
+  in_array('-RA', $fen) || in_array('-RADZ', $fen) ||
+  in_array('+RA', $fen) || in_array('-DZ', $fen)){
     array_push($badges, '<span class="badge badge-warning">Pioggia</span>');
   }
   if (in_array('TSRA', $fen) || in_array('+TSRA', $fen) || in_array('-TSRA', $fen)){
@@ -101,7 +119,7 @@ function getBadges($vento, $vis, $fen, $temp){
   if (in_array('RASN', $fen)){
     array_push($badges, '<span class="badge badge-warning">Nevischio</span>');
   }
-  if (similar_text('M', $temp) >= 1){
+  if ($temp <= 0){
     array_push($badges, '<span class="badge badge-info">Sottozero</span>');
   }
 

@@ -61,7 +61,7 @@
 
                           if (isset($_POST['wxNew'])) {
                             $t = $_POST['wxTime'];
-                            $dV = $_POST['wxDirV'];
+                            $dV = sprintf("%03d", $_POST['wxDirV']);
                             $vV = validateWSpeed($_POST['wxVelV']);
                             $vis = validateVisibility($_POST['wxVis']);
                             $fen = $_POST['wxFen'];
@@ -71,8 +71,10 @@
                             $press = sprintf("%04d", convertQFEToQNH($_POST['wxPress']));
                             $trend = $_POST['wxTrend'];
                             $rmk = $_POST['wxRmk'];
-                            $realtemp1 = sprintf("%02d", $_POST['wxTA']);
-                            $realtemp2 = sprintf("%02d", $_POST['wxTR']);
+                            #$realtemp1 = sprintf("%02d", $_POST['wxTA']);
+                            #$realtemp2 = sprintf("%02d", $_POST['wxTR']);
+                            $realtemp1 = $_POST['wxTR'];
+                            $realtemp2 = $_POST['wxTR'];
 
                             $METAR = preg_replace('/\s+/', ' ', "METAR LIDQ $t $dV$vV"."KT $vis $fen $nuv $temp1/$temp2 Q$press $trend");
 
@@ -156,10 +158,14 @@
                                   ORA DI EMISSIONE:
                                   <?php
                                   $dt = new DateTime($row['wxTime']);
-                                  if ($dt->format('H') == $h+1) {
 
-                                    if ($diff>10) echo "Scarto di ~ $diff min";
-                                    else echo "Precisa +-10 min";
+                                  if ($dt->format('H') == $h+1) {
+                                    if ($diff>5) {
+                                      echo "Scarto di $diff min";
+                                    }
+                                    else {
+                                      echo "Precisa";
+                                    }
                                   }
                                   else {
                                     echo "Differita";
@@ -179,7 +185,7 @@
                             </td>
                               <td>
                                 <?php
-                                echo getBadges($row['wxVelV'], $row['wxVisib'], $row['wxFen'], $row['wxTempA']);
+                                echo getBadges($row['wxVelV'], $row['wxVisib'], $row['wxFen'], $row['wxTempA'], $row['wxNuv']);
                               ?>
                              </td>
                             </tr>

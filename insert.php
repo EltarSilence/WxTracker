@@ -77,7 +77,7 @@
                                   <td><input style="width: 135px;" class="form-control" value="<?php echo $t; ?>" name="wxTime"></td>
                                   <td><input style="width: 65px;" class="form-control" name="wxDirV"></td>
                                   <td><input style="width: 65px;" class="form-control" name="wxVelV"></td>
-                                  <td><input style="width: 135px;" class="form-control" name="wxVis"></td>
+                                  <td><input style="width: 135px;" class="form-control" name="wxVis" placeholder="<CAVOK>"></td>
                                   <td><input style="width: 135px;" class="form-control" name="wxFen"></td>
                                   <td><input style="width: 200px;" class="form-control" name="wxNuv"></td>
                                   <td><input type="number" style="width: 70px;" class="form-control" name="wxTA"></td>

@@ -65,11 +65,14 @@
                                 <i class="icon-people">Titolo</i>
                               </th>
                               <th>Valore rilevato</th>
-                              <th>Data e ora METAR</th>
                             </tr>
                           </thead>
                           <tbody>
                         <?php
+                          $sql = "SELECT COUNT(id) AS n_riporti FROM wxdata";
+                          $result = mysqli_query($conn, $sql);
+                          while ($output = mysqli_fetch_assoc($result)){ $tot = $output['n_riporti']; }
+
                           $sql = "SELECT MAX(wxTempA) AS maxtemp FROM wxdata";
                           $result = mysqli_query($conn, $sql);
                           while ($output = mysqli_fetch_assoc($result)){ $maxtemp = $output['maxtemp']; }
@@ -77,24 +80,71 @@
                           $sql = "SELECT MIN(wxTempA) AS mintemp FROM wxdata";
                           $result = mysqli_query($conn, $sql);
                           while ($output = mysqli_fetch_assoc($result)){ $mintemp = $output['mintemp']; }
+
+                          $sql = 'SELECT COUNT(wxVisib) AS quantiCAVOK FROM wxdata WHERE wxVisib = "CAVOK" ';
+                          $result = mysqli_query($conn, $sql);
+                          while ($output = mysqli_fetch_assoc($result)){ $countCAVOK = $output['quantiCAVOK']; }
+
+                          $sql = 'SELECT COUNT(wxFen) AS q_foschia FROM wxdata WHERE wxFen LIKE "%BR%" ';
+                          $result = mysqli_query($conn, $sql);
+                          while ($output = mysqli_fetch_assoc($result)){ $countBR = $output['q_foschia']; }
+
+                          $sql = 'SELECT COUNT(wxFen) AS q_pioggia FROM wxdata WHERE wxFen LIKE "%RA%" ';
+                          $result = mysqli_query($conn, $sql);
+                          while ($output = mysqli_fetch_assoc($result)){ $countRA = $output['q_pioggia']; }
+
+                          $sql = 'SELECT COUNT(wxVelV) AS q_gust FROM wxdata WHERE wxVelV LIKE "%G%" ';
+                          $result = mysqli_query($conn, $sql);
+                          while ($output = mysqli_fetch_assoc($result)){ $countGust = $output['q_gust']; }
                         ?>
                             <tr>
                               <td>
-                                Temperatura pi&ugrave; alta
+                                Numero di METAR emessi
                               </td>
                               <td>
-                                <?php echo (int)$maxtemp.' gradi'; ?>
+                                <?php echo $tot; ?>
                               </td>
                             </tr>
                             <tr>
                               <td>
-                                Temperatura pi&ugrave; bassa
+                                Massime di temperatura
                               </td>
                               <td>
-                                <?php echo '-'.(int)$mintemp.' gradi'; ?>
+                                <?php echo 'MAX: '. $maxtemp.' C / MIN: '.$mintemp. ' C'; ?>
                               </td>
                             </tr>
-
+                            <tr>
+                              <td>
+                                Numero di CAVOK
+                              </td>
+                              <td>
+                                <?php echo $countCAVOK.' ('.round(($countCAVOK/$tot*100), 1).'% dei riporti)'; ?>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                Riporti contenenti foschia
+                              </td>
+                              <td>
+                                <?php echo $countBR.' ('.round(($countBR/$tot*100), 1).'% dei riporti)'; ?>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                Riporti contenenti pioggia
+                              </td>
+                              <td>
+                                <?php echo $countRA.' ('.round(($countRA/$tot*100), 1).'% dei riporti)'; ?>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                Riporti con raffiche di vento (gusts)
+                              </td>
+                              <td>
+                                <?php echo $countGust.' ('.round(($countGust/$tot*100), 1).'% dei riporti)'; ?>
+                              </td>
+                            </tr>
                           </tbody>
                         </table>
                         <!-- FINE TAB METAR -->
