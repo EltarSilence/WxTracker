@@ -72,7 +72,7 @@
                             $rmk = $_POST['wxRmk'];
                             #$realtemp1 = sprintf("%02d", $_POST['wxTA']);
                             #$realtemp2 = sprintf("%02d", $_POST['wxTR']);
-                            $realtemp1 = $_POST['wxTR'];
+                            $realtemp1 = $_POST['wxTA'];
                             $realtemp2 = $_POST['wxTR'];
 
                             $METAR = preg_replace('/\s+/', ' ', "METAR LIDQ $t $dV$vV"."KT $vis $fen $nuv $temp1/$temp2 Q$press $trend");
