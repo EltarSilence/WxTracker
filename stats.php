@@ -109,7 +109,8 @@
                                 Massime di temperatura
                               </td>
                               <td>
-                                <?php echo 'MAX: '. $maxtemp.' C / MIN: '.$mintemp. ' C'; ?>
+                                <?php echo 'MAX: '. $maxtemp.' C / MIN: '.$mintemp. ' C'; ?> <br>
+                                <i>Dati storici: <b>Max 38.9</b> (04/08/2017) <b>Min -5.8</b> (27/02/2018)</i>
                               </td>
                             </tr>
                             <tr>

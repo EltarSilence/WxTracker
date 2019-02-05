@@ -42,6 +42,7 @@ function validateTemp($t){
 }
 
 function time_elapsed_string($datetime, $full = false) {
+    date_default_timezone_set('UTC');
     $now = new DateTime;
     $ago = new DateTime($datetime);
     $diff = $now->diff($ago);
@@ -88,18 +89,17 @@ function isVMCfmClouds($clouds){
 
 function getBadges($vento, $vis, $fen, $temp, $nuvole){
   $badges = array();
-
-  if (substr($vento, 0, 2) >= 15){
-    array_push($badges, '<span class="badge badge-primary">Ventoso</span>');
-  }
-
   if ((substr($vis, 0, 4) >= 5000 || strtoupper($vis) == "CAVOK") && isVMCfmClouds($nuvole)){
-    array_push($badges, '<span class="badge badge-success">VMC</span>');
+    array_push($badges, '<span class="badge badge-primary">VMC</span>');
   }
   else {
     array_push($badges, '<span class="badge badge-danger">IMC</span>');
   }
 
+  if (substr($vento, 0, 2) >= 15){
+    array_push($badges, '<span class="badge badge-secondary">Ventoso</span>');
+  }
+  
   $fen = explode(' ', $fen);
   if (in_array('BR', $fen)){
     array_push($badges, '<span class="badge badge-secondary">Foschia</span>');
@@ -110,7 +110,9 @@ function getBadges($vento, $vis, $fen, $temp, $nuvole){
   in_array('+RA', $fen) || in_array('-DZ', $fen)){
     array_push($badges, '<span class="badge badge-warning">Pioggia</span>');
   }
-  if (in_array('TSRA', $fen) || in_array('+TSRA', $fen) || in_array('-TSRA', $fen)){
+  if (in_array('TSRA', $fen) || in_array('VCTS', $fen) ||
+      in_array('TS', $fen) || in_array('+TSRA', $fen) ||
+      in_array('-TSRA', $fen)){
     array_push($badges, '<span class="badge badge-danger">Temporale</span>');
   }
   if (in_array('SN', $fen) || in_array('-SN', $fen) || in_array('+SN', $fen)){
@@ -120,7 +122,7 @@ function getBadges($vento, $vis, $fen, $temp, $nuvole){
     array_push($badges, '<span class="badge badge-warning">Nevischio</span>');
   }
   if ($temp <= 0){
-    array_push($badges, '<span class="badge badge-info">Sottozero</span>');
+    array_push($badges, '<span class="badge badge-info">Gelo</span>');
   }
 
   return implode(' ', $badges);
