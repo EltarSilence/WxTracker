@@ -21,20 +21,10 @@
         <title>Inserisci | WX Tracker</title>
         <!-- Main styles for this application-->
         <link href="css/style.min.css" rel="stylesheet">
+        <link href="css/kstyle.css" rel="stylesheet">
         <!-- Global site tag (gtag.js) - Google Analytics-->
-        <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-118965717-3"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-          function gtag() {
-            dataLayer.push(arguments);
-          }
-          gtag('js', new Date());
-          // Shared ID
-          gtag('config', 'UA-118965717-3');
-          // Bootstrap ID
-          gtag('config', 'UA-118965717-5');
-        </script>
       </head>
       <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
         <header class="app-header navbar">
@@ -55,40 +45,73 @@
                       <?php
                         $t = METAR::createTimeGroup(true);
                       ?>
+                      <table>
+                        <thead>
+                          <th>Campo</th>
+                          <th>Valore</th>
+                        </thead>
+                        <tbody>
+                          <form action="index.php" method="post">
+                          <tr>
+                            <td>Data e Ora</td>
+                            <td><input class="form-control" value="<?php echo $t; ?>" name="wxTime"></td>
+                          </tr>
+                          <tr>
+                            <td>Direzione Vento</td>
+                            <td><input class="form-control" name="wxDirV"></td>
+                          </tr>
+                          <tr>
+                            <td>Vel. Vento</td>
+                            <td><input class="form-control" name="wxVelV"></td>
 
-                          <table>
-                            <thead>
-                              <th>Data e Ora</th>
-                              <th>Dir. Vento</th>
-                              <th>Vel. Vento</th>
-                              <th>Visibilita</th>
-                              <th>Fenomeni</th>
-                              <th>Cop. Nuvolosa</th>
-                              <th>Temperatura</th>
-                              <th>P. di rugiada</th>
-                              <th>Pressione</th>
-                              <th>Trend</th>
-                              <th>Note</th>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <form action="index.php" method="post">
-                                  <td><input style="width: 135px;" class="form-control" value="<?php echo $t; ?>" name="wxTime"></td>
-                                  <td><input style="width: 65px;" class="form-control" name="wxDirV"></td>
-                                  <td><input style="width: 65px;" class="form-control" name="wxVelV"></td>
-                                  <td><input style="width: 135px;" class="form-control" name="wxVis" placeholder="<CAVOK>"></td>
-                                  <td><input style="width: 135px;" class="form-control" name="wxFen"></td>
-                                  <td><input style="width: 200px;" class="form-control" name="wxNuv"></td>
-                                  <td><input type="number" style="width: 70px;" class="form-control" name="wxTA"></td>
-                                  <td><input type="number" style="width: 70px;" class="form-control" name="wxTR"></td>
-                                  <td><input style="width: 70px;" class="form-control" name="wxPress"></td>
-                                  <td><input style="width: 70px;" class="form-control" name="wxTrend"></td>
-                                  <td><input style="width: 135px;" class="form-control" name="wxRmk"></td>
-                                  <td><input type="submit" name="wxNew"></td>
-                                </form>
-                              </tr>
-                            </tbody>
-                          </table>
+                          </tr>
+                          <tr>
+                            <td>Visibilita</td>
+                            <td><input class="form-control" name="wxVis" placeholder="<CAVOK>"></td>
+                          </tr>
+
+                          <tr>
+                            <td>Fenomeni</td>
+                            <td><input class="form-control" name="wxFen"></td>
+
+                          </tr>
+                          <tr>
+                            <td>Cop. Nuvolosa</td>
+                            <td><input class="form-control" name="wxNuv">
+                          </tr>
+                          <tr>
+                            <td>Temperatura</td>
+                            <td><input type="number" class="form-control" name="wxTA"></td>
+
+                          </tr>
+                          <tr>
+                            <td>P. di rugiada</td>
+                            <td><input type="number" class="form-control" name="wxTR"></td>
+
+                          </tr>
+                          <tr>
+                            <td>Pressione</td>
+                            <td><input class="form-control" name="wxPress"></td>
+
+                          </tr>
+                          <tr>
+                            <td>Trend</td>
+                            <td><input class="form-control" name="wxTrend"></td>
+
+                          </tr>
+                          <tr>
+                            <td>Note</td>
+                            <td><input class="form-control" name="wxRmk"></td>
+
+                          </tr>
+                          <tr>
+                            <td><input type="submit" name="wxNew"></td>
+
+                          </tr>
+                          </form>
+                        </tbody>
+
+                      </table>
 
                       <br>
                       </div>
@@ -103,7 +126,5 @@
           </main>
         </div>
         <?php include 'ft.html'; ?>
-
-        <script src="js/main.js"></script>
       </body>
     </html>
