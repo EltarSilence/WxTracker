@@ -27,11 +27,6 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
         <link href="css/style.min.css" rel="stylesheet">
         <link href="css/kstyle.css" rel="stylesheet">
-        <script>
-          $(document).ready(function(){
-            $('[data-toggle="tooltip"]').tooltip();
-          });
-        </script>
       </head>
       <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
 
@@ -188,20 +183,19 @@
 
                                 if ($row['wxNuvType1'] != "0" && $row['wxNuvType1'] != ""){
                                   $nube1 = $row['wxNuvType1'];
-                                  $sql1 = "SELECT nube, path FROM cldtypes WHERE id = $nube1";
+                                  $sql1 = "SELECT path FROM cldtypes WHERE id = $nube1";
                                   $result1 = mysqli_query($conn, $sql1);
                                   while ($k = mysqli_fetch_assoc($result1)){
-                                    echo '<a title="'.$k['nube'].'"  data-toggle="tooltip"><img  src="'.$k['path'].'"></a>';
+                                    echo '<img src="'.$k['path'].'">';
                                   }
                                 }
 
                                 if ($row['wxNuvType2'] != "0" && $row['wxNuvType2'] != ""){
                                   $nube2 = $row['wxNuvType2'];
-                                  $sql2 = "SELECT nube, path FROM cldtypes WHERE id = $nube2";
+                                  $sql2 = "SELECT path FROM cldtypes WHERE id = $nube2";
                                   $result2 = mysqli_query($conn, $sql2);
                                   while ($k = mysqli_fetch_assoc($result2)){
-
-                                    echo '<a title="'.$k['nube'].'"  data-toggle="tooltip"><img  src="'.$k['path'].'"></a>';
+                                    echo '<img  src="'.$k['path'].'">';
                                   }
                                 }
 

@@ -79,7 +79,7 @@ function isVMCfmClouds($clouds){
   foreach ($clds as $copertura){
     $okta = substr($copertura, 0, 3);
     $quota = 100 * (int)substr($copertura, 3, 6);
-    if (($okta == "BKN" || $okta == "OVC") && ($quota <= 1500)) {
+    if (($okta == "BKN" || $okta == "OVC") && ($quota < 1500)) {
       $vmc = false;
       break;
     }
