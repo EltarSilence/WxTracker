@@ -23,10 +23,18 @@
         <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
         <title>WX Tracker</title>
         <!-- Main styles for this application-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
         <link href="css/style.min.css" rel="stylesheet">
-        <!-- Global site tag (gtag.js) - Google Analytics-->
+        <link href="css/kstyle.css" rel="stylesheet">
+        <script>
+          $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+          });
+        </script>
       </head>
       <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
+
         <header class="app-header navbar">
           <a class="navbar-brand" href="#">
           </a>
@@ -127,6 +135,7 @@
                               <th>Data e Ora</th>
                               <th>Periodo</th>
                               <th>RAW METAR</th>
+                              <th>Nubi</th>
                               <th>Badges</th>
                             </tr>
                           </thead>
@@ -172,7 +181,32 @@
                                 <strong>
                                  <?php echo $row['raw']; ?>
                                </strong>
+                            </td>
+                            <td>
 
+                              <?php
+
+                                if ($row['wxNuvType1'] != "0" && $row['wxNuvType1'] != ""){
+                                  $nube1 = $row['wxNuvType1'];
+                                  $sql1 = "SELECT nube, path FROM cldtypes WHERE id = $nube1";
+                                  $result1 = mysqli_query($conn, $sql1);
+                                  while ($k = mysqli_fetch_assoc($result1)){
+                                    echo '<a title="'.$k['nube'].'"  data-toggle="tooltip"><img  src="'.$k['path'].'"></a>';
+                                  }
+                                }
+
+                                if ($row['wxNuvType2'] != "0" && $row['wxNuvType2'] != ""){
+                                  $nube2 = $row['wxNuvType2'];
+                                  $sql2 = "SELECT nube, path FROM cldtypes WHERE id = $nube2";
+                                  $result2 = mysqli_query($conn, $sql2);
+                                  while ($k = mysqli_fetch_assoc($result2)){
+
+                                    echo '<a title="'.$k['nube'].'"  data-toggle="tooltip"><img  src="'.$k['path'].'"></a>';
+                                  }
+                                }
+
+
+                              ?>
                             </td>
                               <td>
                                 <?php

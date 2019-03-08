@@ -1,3 +1,8 @@
+img {
+  width: 40px;
+  height: 40px;
+}
+
 .add {
   margin: 10px;
   border: 1px solid;
@@ -13,8 +18,8 @@ tr {
 }
 
 table {
-  margin: 10px;
-  border: 1px solid black;
+  padding: 10px;
+  border: 1px solid #cccccc;
   width: 60%;
   text-align: center;
 }
