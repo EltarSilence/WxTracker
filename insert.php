@@ -48,8 +48,6 @@
       <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
         <header class="app-header navbar">
           <a class="navbar-brand" href="#">
-            <img class="navbar-brand-full" src="img/brand/logo.svg" width="89" height="25" alt="CoreUI Logo">
-            <img class="navbar-brand-minimized" src="img/brand/sygnet.svg" width="30" height="30" alt="CoreUI Logo">
           </a>
         </header>
         <div class="app-body">
@@ -106,7 +104,7 @@
                             <td><input class="form-control" name="wxNuv">
                               <div id="hid">
                                 <select class="form-control" name="wx1stNuv">
-                                  <option value="">Non specificata</option>
+                                  <option value="0">Non specificata</option>
                                   <?php
                                     $sql = "SELECT id, nube FROM cldtypes";
                                     $result = mysqli_query($conn, $sql);
@@ -116,7 +114,7 @@
                                   ?>
                                 </select>
                                 <select class="form-control" name="wx2ndNuv">
-                                  <option value="">Non specificata</option>
+                                  <option value="0">Non specificata</option>
                                   <?php
                                     $sql = "SELECT id, nube FROM cldtypes";
                                     $result = mysqli_query($conn, $sql);

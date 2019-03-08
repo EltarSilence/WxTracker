@@ -25,25 +25,10 @@
         <!-- Main styles for this application-->
         <link href="css/style.min.css" rel="stylesheet">
         <!-- Global site tag (gtag.js) - Google Analytics-->
-        <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-118965717-3"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-
-          function gtag() {
-            dataLayer.push(arguments);
-          }
-          gtag('js', new Date());
-          // Shared ID
-          gtag('config', 'UA-118965717-3');
-          // Bootstrap ID
-          gtag('config', 'UA-118965717-5');
-        </script>
       </head>
       <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
         <header class="app-header navbar">
           <a class="navbar-brand" href="#">
-            <img class="navbar-brand-full" src="img/brand/logo.svg" width="89" height="25" alt="CoreUI Logo">
-            <img class="navbar-brand-minimized" src="img/brand/sygnet.svg" width="30" height="30" alt="CoreUI Logo">
           </a>
         </header>
         <div class="app-body">
@@ -60,11 +45,18 @@
 
                           if (isset($_POST['wxNew'])) {
                             $t = $_POST['wxTime'];
-                            $dV = sprintf("%03d", $_POST['wxDirV']);
+                            if ($_POST['wxDirV']!="VRB"){
+                              $dV = sprintf("%03d", $_POST['wxDirV']);
+                            }
+                            else {
+                              $dV = "VRB";
+                            }
                             $vV = validateWSpeed($_POST['wxVelV']);
                             $vis = validateVisibility($_POST['wxVis']);
                             $fen = $_POST['wxFen'];
                             $nuv = $_POST['wxNuv'];
+                            $nt1 = $_POST['wx1stNuv'];
+                            $nt2 = $_POST['wx2ndNuv'];
                             $temp1 = validateTemp($_POST['wxTA']);
                             $temp2 = validateTemp($_POST['wxTR']);
                             $press = sprintf("%04d", convertQFEToQNH($_POST['wxPress']));
@@ -77,8 +69,8 @@
 
                             $METAR = preg_replace('/\s+/', ' ', "METAR LIDQ $t $dV$vV"."KT $vis $fen $nuv $temp1/$temp2 Q$press $trend");
 
-                            $sql = "INSERT INTO wxdata (wxDirV, wxVelV, wxVisib, wxFen, wxNuv, wxTempA, wxTempR, wxPress, remarks, trend, raw)
-                            VALUES ('$dV', '$vV', '$vis', '$fen', '$nuv', '$realtemp1', '$realtemp2', '$press', '$rmk', '$trend', '$METAR')";
+                            $sql = "INSERT INTO wxdata (wxDirV, wxVelV, wxVisib, wxFen, wxNuv, wxNuvType1, wxNuvType2, wxTempA, wxTempR, wxPress, remarks, trend, raw)
+                            VALUES ('$dV', '$vV', '$vis', '$fen', '$nuv', '$nt1', '$nt2', '$realtemp1', '$realtemp2', '$press', '$rmk', '$trend', '$METAR')";
 
                             $result = mysqli_query($conn, $sql);
 
@@ -206,6 +198,5 @@
 
         </div>
         <?php include 'ft.html'; ?>
-        <script src="js/main.js"></script>
       </body>
     </html>

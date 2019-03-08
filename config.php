@@ -42,7 +42,7 @@ function validateTemp($t){
 }
 
 function time_elapsed_string($datetime, $full = false) {
-    date_default_timezone_set('UTC');
+    date_default_timezone_set('Europe/Vatican');
     $now = new DateTime;
     $ago = new DateTime($datetime);
     $diff = $now->diff($ago);
@@ -99,7 +99,7 @@ function getBadges($vento, $vis, $fen, $temp, $nuvole){
   if (substr($vento, 0, 2) >= 15){
     array_push($badges, '<span class="badge badge-secondary">Ventoso</span>');
   }
-  
+
   $fen = explode(' ', $fen);
   if (in_array('BR', $fen)){
     array_push($badges, '<span class="badge badge-secondary">Foschia</span>');
